@@ -555,11 +555,11 @@ void OLEDDisplay::drawString(int16_t xMove, int16_t yMove, String strUser) {
 //  unsigned char c = 0,i = 0,j = 0,ch[3];
 //  String strUser;
 //
-//  ch[0] = Num/100 + 48;//ï¿½ï¿½ï¿½ï¿½Ê®ï¿½ï¿½ï¿½Æµï¿½48ï¿½ï¿½Îªï¿½Ë¸ï¿½Numï¿½ï¿½ï¿½ï¿½ASCLLï¿½ï¿½Ä¸ï¿½4Î»0011 0000ï¿½ï¿½
+//  ch[0] = Num/100 + 48;//¼ÓÉÏÊ®½øÖÆµÄ48ÊÇÎªÁË¸øNum¼ÓÉÏASCLLÂëµÄ¸ß4Î»0011 0000£»
 //  ch[1] = Num%100/10 + 48;
 //  ch[2] = Num%10 + 48;
 //
-//  if(ch[0] == 48)     //ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Î»Îª"0"Ê±ï¿½ï¿½ï¿½ï¿½É¿Õ¸ñ£¨¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
+//  if(ch[0] == 48)     //ÓÃÓÚ°ÑÒÀ´ÎÃ¿Î»Îª"0"Ê±£¬±ä³É¿Õ¸ñ£¨¼´²»ÏÔÊ¾£©
 //  {
 //      ch[0] = 32;
 //				if(ch[1] == 48)
@@ -629,7 +629,7 @@ void OLEDDisplay::drawStringMaxWidth(int16_t xMove, int16_t yMove, uint16_t maxL
         preferredBreakpoint = i;
         widthAtBreakpoint = strWidth;
       }
-      drawStringInternal(xMove, yMove + (lineNumber++) * lineHeight , &text[lastDrawnPos], preferredBreakpoint - lastDrawnPos, widthAtBreakpoint);
+      drawStringInternal(xMove, yMove + (lineNumber++) * lineHeight , &text[lastDrawnPos], preferredBreakpoint - lastDrawnPos + 1, widthAtBreakpoint);
       lastDrawnPos = preferredBreakpoint + 1;
       // It is possible that we did not draw all letters to i so we need
       // to account for the width of the chars from `i - preferredBreakpoint`
