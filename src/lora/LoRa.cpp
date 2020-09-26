@@ -110,20 +110,20 @@ int LoRaClass::begin(long frequency,bool PABOOST)
   writeRegister(REG_FIFO_TX_BASE_ADDR, 0);
   writeRegister(REG_FIFO_RX_BASE_ADDR, 0);
   // set LNA boost
-  writeRegister(REG_LNA, readRegister(REG_LNA) | 0x03);
+  //writeRegister(REG_LNA, readRegister(REG_LNA) | 0x03);
   // set auto AGC
-  writeRegister(REG_MODEM_CONFIG_3, 0x04);
-  // set output power to 14 dBm
-  if(PABOOST == true)
-	  setTxPower(14, RF_PACONFIG_PASELECT_PABOOST);
-  else
-	  setTxPower(14, RF_PACONFIG_PASELECT_RFO);
-  setSpreadingFactor(11);
+  //writeRegister(REG_MODEM_CONFIG_3, 0x04);
+  // set low data rate optimize on
+  writeRegister(REG_MODEM_CONFIG_3, 0x08);
+  // set output power to 20 dBm
+  setTxPowerMax(20);  //PA_BOOST
+  // set Spreading Factor to 12 (6~12)
+  setSpreadingFactor(12);
   // put in standby mode
   setSignalBandwidth(125E3);
-  //setCodingRate4(5);
-  setSyncWord(0x34);
-  disableCrc();
+  setCodingRate4(8);
+  //setSyncWord(0x34);
+  //disableCrc();
   crc();
   idle();
   return 1;
@@ -403,7 +403,7 @@ void LoRaClass::setTxPowerMax(int level)
 	else if(level > 20)	{
 		level = 20;
 	}
-	writeRegister(REG_LR_OCP,0x3f);
+	//writeRegister(REG_LR_OCP,0x2);
 	writeRegister(REG_PaDac,0x87);//Open PA_BOOST
 	writeRegister(REG_PA_CONFIG, RF_PACONFIG_PASELECT_PABOOST | (level - 5));
 }
